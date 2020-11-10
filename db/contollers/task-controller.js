@@ -9,7 +9,7 @@ getTasks = async (req, res) => {
 			if (!tasks.length) {
 				return res
 					.status(404)
-					.json({ success: false, error: `Movie not found` });
+					.json({ success: false, error: `Task not found` });
 			}
 			return res.status(200).json({ success: true, data: tasks });
 		});
@@ -20,11 +20,11 @@ getTasks = async (req, res) => {
 
 getTask = async (req, res) => {
 	try {
-		const task = await Task.findById(req.params.id);
+		const task = await Task.findOne({_id: req.params.id}, (err, element));
 		if (!task) {
 			res.status(400).json({"success": false})
 		}
-		return res.status(200).json({ success: true, data: task})
+		return res.status(200).json({ success: true, data: element})
 	} catch(err) {
 		console.log(err)
 	}
@@ -36,7 +36,7 @@ createTask = async (req, res) => {
 		if (!body) {
 			return res.status(400).json({
 				success: false,
-				error: "You must provide a movie",
+				error: "You must provide a task",
 			});
 		}
 
@@ -82,6 +82,7 @@ updateTask = async (req, res) => {
 
 module.exports = {
 	getTasks,
+	getTask,
 	createTask,
 	deleteTask,
 	updateTask,

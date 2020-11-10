@@ -11,7 +11,7 @@ class List extends Component {
     this.setState({
       list: result.data
     })
-    
+
   }
 
   render() {
