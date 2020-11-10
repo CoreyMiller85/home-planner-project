@@ -7,7 +7,7 @@ class List extends Component {
   }
 
   componentDidMount = async () => {
-    const result = await axios.get('http://localhost:5000/api/task');
+    const result = await axios.get('/api/task');
     console.log(result)
   }
 
