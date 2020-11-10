@@ -8,7 +8,10 @@ class List extends Component {
 
   componentDidMount = async () => {
     const result = await axios.get('/api/task');
-    console.log(result)
+    this.setState({
+      list: result.data
+    })
+    
   }
 
   render() {

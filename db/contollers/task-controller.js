@@ -18,6 +18,18 @@ getTasks = async (req, res) => {
 	}
 };
 
+getTask = async (req, res) => {
+	try {
+		const task = await Task.findById(req.params.id);
+		if (!task) {
+			res.status(400).json({"success": false})
+		}
+		return res.status(200).json({ success: true, data: task})
+	} catch(err) {
+		console.log(err)
+	}
+}
+
 createTask = async (req, res) => {
 	const body = req.body;
 	try {
