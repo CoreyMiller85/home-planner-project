@@ -1,6 +1,6 @@
 const prod = {
   url: {
-   API_URL: 'https://sleepy-depths-65585.herokuapp.com/',
+   API_URL: 'https://hidden-springs-72856.herokuapp.com',
    }
  };
  const dev = {
