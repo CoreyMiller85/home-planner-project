@@ -6,12 +6,13 @@ const taskRouter = require('./routes/task-routes')
 const path = require('path')
 
 const app = express();
-
 app.use(cors());
+
 
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 app.use(express.static(path.join(__dirname, "client", "build")));
+
 
 app.use('/api', taskRouter)
 
