@@ -12,16 +12,11 @@ const Task = (props) => {
     history.push("/api/task/" + id);
   };
 
-  const handleDelete = () => {
-    const response = axios.delete(config.url.API_URL + props.data._id);
-  };
-
   return (
     <div className="task-div" onClick={() => handleClick(props.data._id)}>
       <h1 className="task-title">{props.data.title}</h1>
       <p>{props.data.materials}</p>
       <p>{props.data.importance}</p>
-      <FontAwesomeIcon icon={faTrash} onClick={handleDelete} />
     </div>
   );
 };
