@@ -3,6 +3,7 @@ import { useHistory } from "react-router";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
+import { config } from "../constants";
 
 const Task = (props) => {
   const history = useHistory();
@@ -12,9 +13,7 @@ const Task = (props) => {
   };
 
   const handleDelete = () => {
-    const response = axios.delete(
-      "http://localhost:5000/api/task/" + props.data._id
-    );
+    const response = axios.delete(config.url.API_URL + props.data._id);
   };
 
   return (
