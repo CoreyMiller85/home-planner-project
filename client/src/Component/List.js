@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { config } from "../constants";
-import Task from './Task'
+import Task from "./Task";
 
 class List extends Component {
   state = {
@@ -18,17 +18,13 @@ class List extends Component {
   render() {
     return (
       <div>
-
         <h1>Hello world</h1>
-      <div className="task-list">
-
-        {this.state.list.map((task) => (
-          <div className="task-div">
-          <Task data={task}/>
+        <div className="task-list">
+          {this.state.list.map((task) => (
+            <Task data={task} />
+          ))}
         </div>
-        ))}
       </div>
-        </div>
     );
   }
 }

@@ -20,11 +20,11 @@ getTasks = async (req, res) => {
 
 getTask = async (req, res) => {
 	try {
-		const task = await Task.findOne({_id: req.params.id}, (err, element));
+		const task = await Task.findOne({_id: req.params.id});
 		if (!task) {
 			res.status(400).json({"success": false})
 		}
-		return res.status(200).json({ success: true, data: element})
+		return res.status(200).json({ success: true, data: task})
 	} catch(err) {
 		console.log(err)
 	}
