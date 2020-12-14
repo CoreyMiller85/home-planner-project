@@ -56,7 +56,7 @@ export default class NewTask extends Component {
           </div>
           <div>
             <label htmlFor="materials">Materials for Task: </label>
-            {/* MAP FUNCTION */}
+            {/* MAP FUNCTION FOR ADDING INPUTS */}
             {this.state.materials.map((material, idx) => {
               return (
                 <input
