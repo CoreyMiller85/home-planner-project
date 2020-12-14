@@ -7,14 +7,16 @@ export default class NewTask extends Component {
     super();
     this.state = {
       title: "",
-      materials: "",
+      materials: [{ name: "" }],
       importance: "",
     };
   }
 
-  handleChange = (e) => {
+  handleMaterialChange = (e) => {
+    const newMaterials = [...this.state.materials];
+    newMaterials[e.target.id].name = e.target.value;
     this.setState({
-      [e.target.name]: e.target.value,
+      materials: newMaterials,
     });
   };
 
@@ -33,6 +35,12 @@ export default class NewTask extends Component {
     this.props.history.push("/");
   };
 
+  handleAddButton = () => {
+    this.setState((prevState) => ({
+      materials: [...prevState.materials, { name: "" }],
+    }));
+  };
+
   render() {
     return (
       <div style={{ textAlign: "center" }}>
@@ -48,12 +56,34 @@ export default class NewTask extends Component {
           </div>
           <div>
             <label htmlFor="materials">Materials for Task: </label>
-            <input
-              type="text"
-              name="materials"
-              onChange={(e) => this.handleChange(e)}
-              value={this.state.materials}
-            />
+            {/* MAP FUNCTION */}
+            {this.state.materials.map((material, idx) => {
+              return (
+                <input
+                  type="text"
+                  name="materials"
+                  id={idx}
+                  onChange={this.handleMaterialChange}
+                  value={this.state.materials[idx].name}
+                />
+              );
+            })}
+
+            <button
+              type="button"
+              style={{
+                background: "blue",
+                borderRadius: "50%",
+                color: "white",
+                border: "none",
+                fontSize: "32px",
+                width: "32px",
+                height: "32px",
+              }}
+              onClick={this.handleAddButton}
+            >
+              +
+            </button>
           </div>
           <div>
             <label htmlFor="importance">Importance: </label>
