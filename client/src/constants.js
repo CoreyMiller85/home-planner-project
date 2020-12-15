@@ -1,6 +1,6 @@
 const prod = {
   url: {
-    API_URL: "https://gentle-shelf-72404.herokuapp.com/",
+    API_URL: "https://gentle-shelf-72404.herokuapp.com",
   },
 };
 const dev = {
