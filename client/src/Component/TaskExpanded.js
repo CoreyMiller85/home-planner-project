@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import axios from "axios";
+
 import { config } from "../constants";
 
 class TaskExpanded extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: this.props.match.params.id,
       task: "",
       title: "",
-      materials: "",
+      materials: [],
       importance: "",
       isEditing: false,
     };
@@ -18,11 +20,11 @@ class TaskExpanded extends Component {
     const response = await axios.get(
       config.url.API_URL + "/api/task/" + this.props.match.params.id
     );
+    const data = response.data.data;
     this.setState({
-      task: response.data.data,
-      title: response.data.data.title,
-      materials: response.data.data.materials,
-      importance: response.data.data.importance,
+      title: data.title,
+      materials: data.materials,
+      importance: data.importance,
     });
   };
 
@@ -53,6 +55,32 @@ class TaskExpanded extends Component {
     });
   };
 
+  handleMaterialChange = (e) => {
+    const mats = [...this.state.materials];
+    const selectedMat = mats[e.target.id];
+    selectedMat.name = e.target.value;
+    this.setState({
+      materials: mats,
+    });
+  };
+
+  handleSubmit = async () => {
+    try {
+      const response = axios.patch(
+        config.url.API_URL + "/api/task/" + this.state.id,
+        {
+          title: this.state.title,
+          materials: this.state.materials,
+          importance: this.state.importance,
+        }
+      );
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+    this.props.history.push("/");
+  };
+
   render() {
     const editFields = this.state.isEditing ? (
       <div>
@@ -65,13 +93,17 @@ class TaskExpanded extends Component {
           onChange={(e) => this.handleChange(e)}
         />
         <label htmlFor="materials">Task Materials: </label>
-        <input
-          type="text"
-          name="materials"
-          placeholder={this.state.task.materials}
-          value={this.state.materials}
-          onChange={(e) => this.handleChange(e)}
-        />
+        {this.state.materials.map((mat, idx) => {
+          return (
+            <input
+              type="text"
+              name="materials"
+              id={idx}
+              value={this.state.materials[idx].name}
+              onChange={(e) => this.handleMaterialChange(e)}
+            />
+          );
+        })}
         <label htmlFor="Importance">Task Importance: </label>
         <input
           type="text"
@@ -102,7 +134,7 @@ class TaskExpanded extends Component {
             color: "white",
             textAlign: "center",
           }}
-          onClick={this.handleEditing}
+          onClick={this.handleSubmit}
         >
           Submit
         </div>

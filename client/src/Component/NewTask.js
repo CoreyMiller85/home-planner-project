@@ -7,10 +7,18 @@ export default class NewTask extends Component {
     super();
     this.state = {
       title: "",
-      materials: "",
+      materials: [{ name: "" }],
       importance: "",
     };
   }
+
+  handleMaterialChange = (e) => {
+    const newMaterials = [...this.state.materials];
+    newMaterials[e.target.id].name = e.target.value;
+    this.setState({
+      materials: newMaterials,
+    });
+  };
 
   handleChange = (e) => {
     this.setState({
@@ -27,10 +35,16 @@ export default class NewTask extends Component {
     });
     this.setState({
       title: "",
-      materials: "",
+      materials: [{ name: "" }],
       importance: "",
     });
     this.props.history.push("/");
+  };
+
+  handleAddButton = () => {
+    this.setState((prevState) => ({
+      materials: [...prevState.materials, { name: "" }],
+    }));
   };
 
   render() {
@@ -48,12 +62,35 @@ export default class NewTask extends Component {
           </div>
           <div>
             <label htmlFor="materials">Materials for Task: </label>
-            <input
-              type="text"
-              name="materials"
-              onChange={(e) => this.handleChange(e)}
-              value={this.state.materials}
-            />
+            {/* MAP FUNCTION FOR ADDING INPUTS */}
+            {this.state.materials.map((material, idx) => {
+              return (
+                <input
+                  type="text"
+                  name="materials"
+                  id={idx}
+                  onChange={this.handleMaterialChange}
+                  value={this.state.materials[idx].name}
+                />
+              );
+            })}
+            <div>
+              <button
+                type="button"
+                style={{
+                  background: "blue",
+                  borderRadius: "50%",
+                  color: "white",
+                  border: "none",
+                  fontSize: "32px",
+                  width: "32px",
+                  height: "32px",
+                }}
+                onClick={this.handleAddButton}
+              >
+                +
+              </button>
+            </div>
           </div>
           <div>
             <label htmlFor="importance">Importance: </label>
@@ -65,6 +102,7 @@ export default class NewTask extends Component {
             />
           </div>
           <a
+            href="#"
             style={{
               display: "inline-block",
               background: "blue",
@@ -75,7 +113,7 @@ export default class NewTask extends Component {
               color: "white",
               fontWeight: "bold",
             }}
-            onClick={(e) => this.handleSubmit(e)}
+            onClick={this.handleSubmit}
           >
             Button
           </a>
