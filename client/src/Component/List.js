@@ -9,7 +9,7 @@ class List extends Component {
   };
 
   componentDidMount = async () => {
-    const result = await axios.get(config.API_URL + "/api/task");
+    const result = await axios.get(config.url.API_URL + "/api/task");
 
     this.setState({
       list: result.data.data,
