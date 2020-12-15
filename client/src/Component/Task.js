@@ -1,9 +1,5 @@
 import React from "react";
 import { useHistory } from "react-router";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
-import { config } from "../constants";
 import "./Task.css";
 
 const Task = (props) => {
