@@ -10,20 +10,18 @@ class List extends Component {
 
   componentDidMount = async () => {
     const result = await axios.get(config.url.API_URL + "/api/task");
+
     this.setState({
       list: result.data.data,
     });
   };
 
   render() {
+    const tasks = this.state.list.map((item) => <Task data={item} />);
+
     return (
       <div>
-        <h1>Hello world</h1>
-        <div className="task-list">
-          {this.state.list.map((task) => (
-            <Task data={task} />
-          ))}
-        </div>
+        <div className="task-list">{tasks}</div>
       </div>
     );
   }

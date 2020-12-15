@@ -20,6 +20,12 @@ export default class NewTask extends Component {
     });
   };
 
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  };
+
   handleSubmit = async (e) => {
     e.preventDefault();
     const result = await axios.post(config.url.API_URL + "/api/task", {
@@ -29,7 +35,7 @@ export default class NewTask extends Component {
     });
     this.setState({
       title: "",
-      materials: "",
+      materials: [{ name: "" }],
       importance: "",
     });
     this.props.history.push("/");
@@ -68,22 +74,23 @@ export default class NewTask extends Component {
                 />
               );
             })}
-
-            <button
-              type="button"
-              style={{
-                background: "blue",
-                borderRadius: "50%",
-                color: "white",
-                border: "none",
-                fontSize: "32px",
-                width: "32px",
-                height: "32px",
-              }}
-              onClick={this.handleAddButton}
-            >
-              +
-            </button>
+            <div>
+              <button
+                type="button"
+                style={{
+                  background: "blue",
+                  borderRadius: "50%",
+                  color: "white",
+                  border: "none",
+                  fontSize: "32px",
+                  width: "32px",
+                  height: "32px",
+                }}
+                onClick={this.handleAddButton}
+              >
+                +
+              </button>
+            </div>
           </div>
           <div>
             <label htmlFor="importance">Importance: </label>
@@ -95,6 +102,7 @@ export default class NewTask extends Component {
             />
           </div>
           <a
+            href="#"
             style={{
               display: "inline-block",
               background: "blue",
@@ -105,7 +113,7 @@ export default class NewTask extends Component {
               color: "white",
               fontWeight: "bold",
             }}
-            onClick={(e) => this.handleSubmit(e)}
+            onClick={this.handleSubmit}
           >
             Button
           </a>
